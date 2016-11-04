@@ -23,7 +23,6 @@ GameObject:
   - 50: {fileID: 50000011051354616}
   - 58: {fileID: 58000013300090664}
   - 114: {fileID: 114000011613588210}
-  - 114: {fileID: 114000013115862028}
   - 199: {fileID: 199000013991177522}
   - 198: {fileID: 198000011129484534}
   m_Layer: 0
@@ -40,8 +39,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012161802348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.012, y: 0.035, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalPosition: {x: 40.2, y: -3.9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -62,7 +61,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &58000013300090664
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -89,26 +88,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numCharges: 10
-  maxCharges: 10
   thrustTime: 1
-  thrustTimer: 0
-  thrustFallof: 1
-  thrustAngle: {x: 0, y: 0}
-  thrustForce: 3
+  thrustAngle: 0
+  steeringAngle: 0
+  thrustForce: 10
+  thrustSteering: 15
   chargeTime: 1.5
-  chargeTimer: 0
---- !u!114 &114000013115862028
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012161802348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85f7322a95af25e4db2a86d25a7efab0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gravitation: 0
 --- !u!198 &198000011129484534
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -159,7 +144,7 @@ ParticleSystem:
   moveWithTransform: 0
   autoRandomSeed: 1
   scalingMode: 2
-  randomSeed: -1252411314
+  randomSeed: -64053371
   InitialModule:
     serializedVersion: 2
     enabled: 1

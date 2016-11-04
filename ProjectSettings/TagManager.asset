@@ -38,6 +38,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BG
+    uniqueID: 1143572199
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: aura
+    uniqueID: 1443684693
+    locked: 0
+  - name: planet
+    uniqueID: 2620755767
     locked: 0

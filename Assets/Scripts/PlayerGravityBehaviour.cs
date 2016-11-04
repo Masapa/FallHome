@@ -10,13 +10,7 @@ public class PlayerGravityBehaviour : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
 	
 	}
-    public void SetGravity(Vector2 direction, float gravity)
-    {
-        directiong = direction * gravity;
-        gravitation = true;
-        Debug.Log(direction);
-    }
- 
+
 	
 	// Update is called once per frame
 	void FixedUpdate () {

@@ -74,6 +74,7 @@ public class PlayerBehaviour : MonoBehaviour {
 
     void FixedUpdate()
     {
+        Debug.Log(body.velocity);
         if (chargeTimer > 0.0f) {
             chargeTimer -= Time.fixedDeltaTime;
         }
