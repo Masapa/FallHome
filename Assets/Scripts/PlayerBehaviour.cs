@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerBehaviour : MonoBehaviour {
 
+
     public int numCharges = 0;
     public int maxCharges = 3;
 
