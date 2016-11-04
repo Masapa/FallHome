@@ -359,11 +359,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d179419b96f9634a904c713efa7e262, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 1904119943}
   samplesPerSecond: 10
   shakeSamples: []
   shakeTime: 0
   shakeTimer: 0
   amplitude: 0.5
+  velocityScaleFactor: 0.3
+  maxScale: 3
 --- !u!1001 &858045453
 Prefab:
   m_ObjectHideFlags: 0
@@ -526,3 +529,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!4 &1904119943 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4000010617652138, guid: 3390f0efef6b043e1add43f26981ded1,
+    type: 2}
+  m_PrefabInternal: {fileID: 104349782}

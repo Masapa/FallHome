@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerBehaviour : MonoBehaviour {
 
+    public GameObject bloodSpatterPrefab;
 
     public int numCharges = 0;
     public int maxCharges = 3;
@@ -49,6 +50,11 @@ public class PlayerBehaviour : MonoBehaviour {
         if (particles == null) {
             Debug.LogError("ParticleSystem missing from player");
         }
+
+        if (bloodSpatterPrefab == null) {
+            Debug.LogError("bloodSpatterPrefab missing from player");
+        }
+
 
         numCharges = maxCharges;
     }
@@ -113,6 +119,22 @@ public class PlayerBehaviour : MonoBehaviour {
                 numCharges = maxCharges;
             }
         }
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (bloodSpatterPrefab != null) {
+            Vector3 dir = (transform.position - other.transform.position).normalized;
+            GameObject splatter = (GameObject)Instantiate(bloodSpatterPrefab, other.transform, false);
+            splatter.transform.localPosition += dir * 1.2f;
+
+            CameraBehaviour cb = Camera.main.gameObject.GetComponent<CameraBehaviour>();
+            if (cb != null) {
+                cb.Shake(1f, 20.0f);
+            }
+        }
+
+        Destroy(gameObject);
     }
 
     private bool IsChargeAvailable()
