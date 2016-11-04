@@ -2,9 +2,11 @@
 using System.Collections;
 
 public class CameraBehaviour : MonoBehaviour {
-     
+
+    Camera cam;
+
     Vector3 position;
-    Transform target;
+    public Transform target;
 
     public int samplesPerSecond = 20;
 
@@ -15,8 +17,17 @@ public class CameraBehaviour : MonoBehaviour {
 
     public float amplitude = 0.5f;
 
+    public float originalScale = 1.0f;
+    public float velocityScaleFactor = 0.1f;
+    public float scale = 1.0f;
+
     void Start()
     {
+        if (cam == null) {
+            cam = GetComponent<Camera>();
+            originalScale = cam.orthographicSize;
+        }
+
         position = transform.position;
 
         if (target == null) {
@@ -34,6 +45,14 @@ public class CameraBehaviour : MonoBehaviour {
         }
 
         if (target) {
+            Rigidbody2D rb = target.GetComponent<Rigidbody2D>();
+            float fac = rb.velocity.magnitude * velocityScaleFactor;
+
+            Debug.Log(" " + fac);
+
+            cam.orthographicSize = Mathf.Clamp(
+                originalScale + fac, originalScale, originalScale * 2f);
+
             position = target.position;
         }
 
