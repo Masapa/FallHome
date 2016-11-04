@@ -9,13 +9,13 @@ public class PlayerBehaviour : MonoBehaviour {
     public float thrustTime = 1.0f;
 
     // Time left in the jetpack thrust
-    private float thrustTimer = 0.0f;
+    public float thrustTimer = 0.0f;
 
     // Angle to apply the thrust to
-    public float thrustAngle;
+    private float thrustAngle;
 
     // Angle to steer towards
-    public float steeringAngle;
+    private float steeringAngle;
 
     // Max thrust force applied to player
     public float thrustForce = 3.0f;
