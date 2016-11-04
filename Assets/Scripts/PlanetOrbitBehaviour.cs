@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+public enum Direction { UP,DOWN}
 public class PlanetOrbitBehaviour : MonoBehaviour {
+    public Direction direction = Direction.UP;
     Transform target;
     float distance;
     Rigidbody2D rb;
@@ -15,8 +16,16 @@ public class PlanetOrbitBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void LateUpdate () {
-        Vector3 tmp = target.position - transform.position;
-        transform.RotateAround(target.position, Vector3.forward, 10 * Time.deltaTime);
+        Vector3 tmp;
+        if(direction == Direction.UP)
+        {
+            tmp = Vector3.forward;
+        }
+        else
+        {
+            tmp = -Vector3.forward;
+        }
+        transform.RotateAround(target.position, tmp, speed * Time.deltaTime);
 
 	}
 }
