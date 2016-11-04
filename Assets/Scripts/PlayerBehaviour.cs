@@ -3,29 +3,31 @@ using System.Collections;
 
 public class PlayerBehaviour : MonoBehaviour {
 
-    public int numCharges = 3;
-    public int maxCharges = 3;
+    public int numCharges = 0;
 
     // How long thrust is applied
     public float thrustTime = 1.0f;
 
     // Time left in the jetpack thrust
-    public float thrustTimer = 0.0f;
-
-    // Amount of thrust power lost when reaching
-    // The end of jetpack charge
-    public float thrustFallof = 1.0f;
+    private float thrustTimer = 0.0f;
 
     // Angle to apply the thrust to
-    public Vector2 thrustAngle;
+    public float thrustAngle;
 
+    // Angle to steer towards
+    public float steeringAngle;
+
+    // Max thrust force applied to player
     public float thrustForce = 3.0f;
+
+    // Max steering angle during thrust
+    public float thrustSteering = 15.0f;
 
     // Time it takes for the jetpack to recharge
     public float chargeTime = 2.0f;
 
     // Time left to recharge
-    public float chargeTimer = 0.0f;
+    private float chargeTimer = 0.0f;
 
     private Rigidbody2D body;
     private ParticleSystem particles;
@@ -51,17 +53,21 @@ public class PlayerBehaviour : MonoBehaviour {
             Input.mousePosition) - transform.position;
 
         float playerToCameraAngle = Mathf.Atan2(playerToCamera.y,
-            playerToCamera.x) * Mathf.Rad2Deg - 90.0f;
+            playerToCamera.x) * Mathf.Rad2Deg;
 
-        Vector3 rotation = transform.rotation.eulerAngles;
-        rotation.z = playerToCameraAngle - 90.0f;
-        transform.eulerAngles = rotation;
+        steeringAngle = playerToCameraAngle;
 
-        if (Input.GetMouseButtonDown(0)) {
-            ActivateJetpack(playerToCamera);
+        if (thrustTimer <= 0.0f) {
+            Vector3 rotation = transform.rotation.eulerAngles;
+            rotation.z = playerToCameraAngle - 180.0f;
+            transform.eulerAngles = rotation;
         }
 
-        if (thrustTimer < 0.0f && particles.isPlaying) {
+        if (Input.GetMouseButtonDown(0)) {
+            ActivateJetpack(playerToCameraAngle);
+        }
+
+        if (thrustTimer <= 0.0f && !particles.isStopped) {
             particles.Stop();
         }
     }
@@ -72,11 +78,23 @@ public class PlayerBehaviour : MonoBehaviour {
             chargeTimer -= Time.fixedDeltaTime;
         }
 
+        float steerOffset = steeringAngle - thrustAngle;
+        thrustAngle += Mathf.Clamp(
+            steerOffset,
+            Time.fixedDeltaTime * -thrustSteering,
+            Time.fixedDeltaTime * thrustSteering
+        );
+
         if (thrustTimer > 0.0f) {
             float thrustLeft = thrustTimer / thrustTime;
-            float force = Mathf.Pow(thrustForce * thrustLeft, 2);
+            float force = thrustForce * Mathf.Pow(thrustLeft, 2);
 
-            body.AddForce(thrustAngle * force);
+            Vector2 vector = new Vector2(
+                Mathf.Cos(thrustAngle * Mathf.Deg2Rad),
+                Mathf.Sin(thrustAngle * Mathf.Deg2Rad)
+            );
+            
+            body.AddForce(vector * force);
 
             thrustTimer -= Time.fixedDeltaTime;
         }
@@ -87,7 +105,7 @@ public class PlayerBehaviour : MonoBehaviour {
         return chargeTimer <= 0.0f && numCharges > 0;
     }
 
-    private void ActivateJetpack(Vector2 direction)
+    private void ActivateJetpack(float direction)
     {
         if (!IsChargeAvailable()) {
             return;
@@ -97,7 +115,8 @@ public class PlayerBehaviour : MonoBehaviour {
 
         numCharges--;
         chargeTimer = chargeTime;
-        thrustAngle = direction.normalized;
+        thrustAngle = direction;
+        steeringAngle = direction;
         thrustTimer = thrustTime;
     }
 }
