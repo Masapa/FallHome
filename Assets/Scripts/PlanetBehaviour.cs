@@ -6,13 +6,14 @@ public class PlanetBehaviour : MonoBehaviour {
      float force;
     CircleCollider2D triggerArea;
     float radius;
-    
+    float playerRadius;
 
 	// Use this for initialization
 	void Start () {
         triggerArea = gameObject.GetComponent<CircleCollider2D>();
+        playerRadius = GameObject.Find("Player").GetComponent<CircleCollider2D>().radius;
         radius = triggerArea.radius;
-        force = gameObject.GetComponentInChildren<CircleCollider2D>().radius * gravitation;
+        force = (playerRadius * gameObject.GetComponentInChildren<CircleCollider2D>().radius) * gravitation;
         
 	}
     void OnTriggerStay2D(Collider2D other)

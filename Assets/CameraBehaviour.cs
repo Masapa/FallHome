@@ -2,45 +2,26 @@
 using System.Collections;
 
 public class CameraBehaviour : MonoBehaviour {
-
-    public Transform player1;
-    public Transform player2;
-
-    private const float DISTANCE_MARGIN = 1.0f;
-
-    private Vector3 middlePoint;
-    private float distanceFromMiddlePoint;
-    private float distanceBetweenPlayers;
-    private float cameraDistance;
-    private float aspectRatio;
-    private float fov;
-    private float tanFov;
-
+     
+    Transform target1, target2;
+    float vertExtent;
+    float horzExtent;
     void Start()
     {
-        player1 = GameObject.Find("Player").GetComponent<Transform>();
-        player2 = GameObject.Find("Earth").GetComponent<Transform>();
-        aspectRatio = Screen.width / Screen.height;
-        tanFov = Mathf.Tan(Mathf.Deg2Rad * Camera.main.fieldOfView / 2.0f);
+        target1 = GameObject.Find("Player").transform;
+        target2 = GameObject.Find("Earth").transform;    
     }
 
-    void Update()
+    void LateUpdate()
     {
-        // Position the camera in the center.
-        Vector3 newCameraPos = Camera.main.transform.position;
-        newCameraPos.x = middlePoint.x;
-        Camera.main.transform.position = newCameraPos;
+        Vector3 tmp = target1.position + (target2.position - target1.position) / 2 ;
+        tmp.z = -10;
+        Camera.main.transform.position = tmp;
+        Camera.main.orthographicSize = Vector3.Distance(target1.position, target2.position) / 2 ;
+        Debug.Log(Camera.main.orthographicSize);
 
-        // Find the middle point between players.
-        Vector3 vectorBetweenPlayers = player2.position - player1.position;
-        middlePoint = player1.position + 0.5f * vectorBetweenPlayers;
 
-        // Calculate the new distance.
-        distanceBetweenPlayers = vectorBetweenPlayers.magnitude;
-        cameraDistance = (distanceBetweenPlayers / 2.0f / aspectRatio) / tanFov;
 
-        // Set camera to new position.
-        Vector3 dir = (Camera.main.transform.position - middlePoint).normalized;
-        Camera.main.transform.position = middlePoint + dir * (cameraDistance + DISTANCE_MARGIN);
+
     }
 }
