@@ -40,15 +40,9 @@ public class CameraBehaviour : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1)) {
-            Shake(0.5f, 20);
-        }
-
         if (target) {
             Rigidbody2D rb = target.GetComponent<Rigidbody2D>();
             float fac = rb.velocity.magnitude * velocityScaleFactor;
-
-            Debug.Log(" " + fac);
 
             cam.orthographicSize = Mathf.Clamp(
                 originalScale + fac, originalScale, originalScale * 2f);
@@ -99,7 +93,7 @@ public class CameraBehaviour : MonoBehaviour {
         }
     }
 
-    void Shake(float duration, float frequency)
+    public void Shake(float duration, float frequency)
     {
         // Already shaking for longer duration than the new shake?
         if (duration < shakeTimer) {
