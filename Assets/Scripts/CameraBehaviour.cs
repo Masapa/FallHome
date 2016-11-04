@@ -17,9 +17,10 @@ public class CameraBehaviour : MonoBehaviour {
 
     public float amplitude = 0.5f;
 
-    public float originalScale = 1.0f;
+    private float originalScale = 1.0f;
+
     public float velocityScaleFactor = 0.1f;
-    public float scale = 1.0f;
+    public float maxScale = 3.0f;
 
     void Start()
     {
@@ -45,7 +46,7 @@ public class CameraBehaviour : MonoBehaviour {
             float fac = rb.velocity.magnitude * velocityScaleFactor;
 
             cam.orthographicSize = Mathf.Clamp(
-                originalScale + fac, originalScale, originalScale * 2f);
+                originalScale + fac, originalScale, originalScale * maxScale);
 
             position = target.position;
         }
