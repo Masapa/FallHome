@@ -7,25 +7,34 @@ public class PlanetOrbitBehaviour : MonoBehaviour {
     float distance;
     Rigidbody2D rb;
     public float speed = 5;
+
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
-        target = GameObject.Find("Earth").GetComponent<Transform>();
+
+            if (gameObject.GetComponentInParent<Transform>() != null)
+            {
+                target = transform.parent.transform;
+            }
+        
         
 	}
 	
 	// Update is called once per frame
 	void LateUpdate () {
-        Vector3 tmp;
-        if(direction == Direction.UP)
+        if (target != null)
         {
-            tmp = Vector3.forward;
+            Vector3 tmp;
+            if (direction == Direction.UP)
+            {
+                tmp = Vector3.forward;
+            }
+            else
+            {
+                tmp = -Vector3.forward;
+            }
+            transform.RotateAround(target.position, tmp, speed * Time.deltaTime);
         }
-        else
-        {
-            tmp = -Vector3.forward;
-        }
-        transform.RotateAround(target.position, tmp, speed * Time.deltaTime);
 
 	}
 }

@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerBehaviour : MonoBehaviour {
 
     public int numCharges = 0;
+    public int maxCharges = 3;
 
     // How long thrust is applied
     public float thrustTime = 1.0f;
@@ -29,6 +30,9 @@ public class PlayerBehaviour : MonoBehaviour {
     // Time left to recharge
     private float chargeTimer = 0.0f;
 
+    public float reloadTimer = 0.0f;
+    public float reloadTime = 4.0f;
+
     private Rigidbody2D body;
     private ParticleSystem particles;
 
@@ -44,6 +48,8 @@ public class PlayerBehaviour : MonoBehaviour {
         if (particles == null) {
             Debug.LogError("ParticleSystem missing from player");
         }
+
+        numCharges = maxCharges;
     }
 
     // Update is called once per frame
@@ -99,6 +105,13 @@ public class PlayerBehaviour : MonoBehaviour {
 
             thrustTimer -= Time.fixedDeltaTime;
         }
+
+        if (reloadTimer > 0.0f) {
+            reloadTimer -= Time.fixedDeltaTime;
+            if (reloadTimer <= 0.0f) {
+                numCharges = maxCharges;
+            }
+        }
     }
 
     private bool IsChargeAvailable()
@@ -110,6 +123,15 @@ public class PlayerBehaviour : MonoBehaviour {
     {
         if (!IsChargeAvailable()) {
             return;
+        }
+
+        if (reloadTimer <= 0.0f) {
+            reloadTimer = reloadTime;
+        }
+
+        CameraBehaviour cb = Camera.main.gameObject.GetComponent<CameraBehaviour>();
+        if (cb != null) {
+            cb.Shake(0.5f, 10.0f);
         }
 
         particles.Play();
