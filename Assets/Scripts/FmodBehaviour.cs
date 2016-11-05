@@ -17,6 +17,8 @@ public class FmodBehaviour : MonoBehaviour {
 
 	FMOD.Studio.EventInstance jetpack_Boost;
 
+    FMOD.Studio.EventInstance planetCrash;
+
 	/*
 	[FMODUnity.EventRef]
 	public string gameBGMSnapshot = "snapshot:/Game";
@@ -25,13 +27,15 @@ public class FmodBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player = GameObject.Find ("Player").transform;
-		earth = GameObject.Find ("Earth").transform;
+        if (GameObject.Find("Player") != null)
+        {
+            player = GameObject.Find("Player").transform;
+            earth = GameObject.Find("Earth").transform;
 
-		distance = Vector3.Distance (player.position, earth.position);
-		initialDistance = Vector3.Distance (player.position, earth.position);
+            distance = Vector3.Distance(player.position, earth.position);
+            initialDistance = Vector3.Distance(player.position, earth.position);
 
-
+        }
 		/* Ennen kuin mitään fmodeilua, pitää lausua loitsut */
 		/*
 		var FMOD_StudioSystem = FMODUnity.RuntimeManager.StudioSystem;
@@ -47,6 +51,7 @@ public class FmodBehaviour : MonoBehaviour {
 		pDistance.setValue (scaledDistance( initialDistance, distance));
 
 		jetpack_Boost = FMODUnity.RuntimeManager.CreateInstance ("event:/Jetpack_Boost");
+        planetCrash = FMODUnity.RuntimeManager.CreateInstance("event:/PlayerDeath");
 
 //		gameBGMSnapshotEv = FMODUnity.RuntimeManager.CreateInstance (gameBGMSnapshot);
 //		gameBGMSnapshotEv.start ();
@@ -56,16 +61,28 @@ public class FmodBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-		distance = Vector3.Distance (player.position, earth.position);	
-		pDistance.setValue (scaledDistance( initialDistance, distance));
-		Debug.Log ("Distance: " + distance);
+        if (GameObject.Find("Player") != null)
+        {
+            player = GameObject.Find("Player").transform;
+            earth = GameObject.Find("Earth").transform;
+            distance = Vector3.Distance(player.position, earth.position);
+            pDistance.setValue(scaledDistance(initialDistance, distance));
+            Debug.Log("Distance: " + distance);
 
-		if (Input.anyKeyDown)
-			jetpack_Boost.start ();
+                
+        }
 
 
 	}
+    public void PlayJetPack()
+    {
+        jetpack_Boost.start();
+    }
+    public void RockImpact()
+    {
+        Debug.Log("CRAASH!");
+        planetCrash.start();
+    }
 
 	// Return 0 to 1.0 based based on initial distance and current distance. 
 	// 0.5 on initial distance, 1.0 on 2x and over
