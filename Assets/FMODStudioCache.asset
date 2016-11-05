@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 114000012039710446}
-  - {fileID: 114000012373716624}
+  - {fileID: 114000011117057948}
   EditorEvents:
   - {fileID: 114000012416196184}
   - {fileID: 114000010759616308}
@@ -31,9 +31,9 @@ MonoBehaviour:
   - {fileID: 114000013250612672}
   - {fileID: 114000013790693386}
   - {fileID: 114000010791653742}
-  MasterBankRef: {fileID: 114000012373716624}
+  MasterBankRef: {fileID: 114000011117057948}
   StringsBankRef: {fileID: 114000012039710446}
-  stringsBankWriteTime: 636139559965610757
+  stringsBankWriteTime: 636139565857450102
   cacheVersion: 2
 --- !u!114 &114000010052499568
 MonoBehaviour:
@@ -178,7 +178,7 @@ MonoBehaviour:
   Path: snapshot:/Game
   guid: 6e7729b003e7174fab0dfb12a054a1a9
   Banks:
-  - {fileID: 114000012373716624}
+  - {fileID: 114000011117057948}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -199,7 +199,7 @@ MonoBehaviour:
   Path: event:/Jetpack_Empty
   guid: fcb6d3684d5bb94b867fd9807910b384
   Banks:
-  - {fileID: 114000012373716624}
+  - {fileID: 114000011117057948}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -220,7 +220,7 @@ MonoBehaviour:
   Path: event:/Jetpack_Charging
   guid: a89c727031655a46a99afc1bde6e96a6
   Banks:
-  - {fileID: 114000012373716624}
+  - {fileID: 114000011117057948}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -241,13 +241,31 @@ MonoBehaviour:
   Path: event:/TeapotImpact
   guid: 990a3bd54367e04bb72ec204ed5f3cf3
   Banks:
-  - {fileID: 114000012373716624}
+  - {fileID: 114000011117057948}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
+--- !u!114 &114000011117057948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\Game\Documents\FallHome\Assets\Fmod_bank\Desktop\Master Bank.bank
+  lastModified: 636139565857435089
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 1288064
+  Exists: 1
 --- !u!114 &114000011169357540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,13 +415,28 @@ MonoBehaviour:
   Path: event:/SpaceAtmospherics
   guid: 840ff0cc7cfa5e4e85baa8e92fa21f2d
   Banks:
-  - {fileID: 114000012373716624}
+  - {fileID: 114000011117057948}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
+--- !u!114 &114000011560214442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Distance
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114000011565146708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,7 +503,7 @@ MonoBehaviour:
   Path: event:/GibletImpact
   guid: 0ce7a9990f2d8044a6ae056ab5a17941
   Banks:
-  - {fileID: 114000012373716624}
+  - {fileID: 114000011117057948}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -543,7 +576,7 @@ MonoBehaviour:
   Path: event:/PlayerDeath
   guid: 8cc9372fbe8acc4cb667d7a2c3f86166
   Banks:
-  - {fileID: 114000012373716624}
+  - {fileID: 114000011117057948}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -564,7 +597,7 @@ MonoBehaviour:
   Path: event:/MetalImpact
   guid: 88f58522e5bd314698f95e67e854a555
   Banks:
-  - {fileID: 114000012373716624}
+  - {fileID: 114000011117057948}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -620,7 +653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\Fmod_bank\Desktop\Master Bank.strings.bank
-  lastModified: 636139559965610757
+  lastModified: 636139565857450102
   LoadResult: 0
   FileSizes:
   - Name: 
@@ -729,12 +762,12 @@ MonoBehaviour:
   Path: event:/GameBGM
   guid: 114d6be6c3ffab4bb71dc0c57877ac94
   Banks:
-  - {fileID: 114000012373716624}
+  - {fileID: 114000011117057948}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 114000013280698738}
+  - {fileID: 114000011560214442}
   MinDistance: 0
   MaxDistance: 10000
 --- !u!114 &114000012426513900
@@ -787,12 +820,12 @@ MonoBehaviour:
   Path: event:/MenuBGM
   guid: d8b854cb73cb184cb24ad51b9a0d3860
   Banks:
-  - {fileID: 114000012373716624}
+  - {fileID: 114000011117057948}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 114000014104009536}
+  - {fileID: 114000013052582388}
   MinDistance: 0
   MaxDistance: 100
 --- !u!114 &114000012650723230
@@ -922,6 +955,21 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114000013052582388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: FadeIn
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114000013179665238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -966,7 +1014,7 @@ MonoBehaviour:
   Path: event:/LevelComplete
   guid: cb92203e66a91249a6e6445be6aa4290
   Banks:
-  - {fileID: 114000012373716624}
+  - {fileID: 114000011117057948}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1118,7 +1166,7 @@ MonoBehaviour:
   Path: snapshot:/Menu
   guid: cf118dfed9b7e44b948612221895196f
   Banks:
-  - {fileID: 114000012373716624}
+  - {fileID: 114000011117057948}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -1139,7 +1187,7 @@ MonoBehaviour:
   Path: event:/LevelSelect
   guid: 32b0adbf6fa9e848888dd523f75c8008
   Banks:
-  - {fileID: 114000012373716624}
+  - {fileID: 114000011117057948}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1196,7 +1244,7 @@ MonoBehaviour:
   Path: event:/StartScreenChoice
   guid: 6e893310dc5dab4e9f981359ec3cea16
   Banks:
-  - {fileID: 114000012373716624}
+  - {fileID: 114000011117057948}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1281,7 +1329,7 @@ MonoBehaviour:
   Path: event:/RockImpact
   guid: e2cbbf13d64d0e4797223a034c1a2a4c
   Banks:
-  - {fileID: 114000012373716624}
+  - {fileID: 114000011117057948}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1302,7 +1350,7 @@ MonoBehaviour:
   Path: event:/Jetpack_Boost
   guid: 962ff09e8e1ec1428b058263b53d8dce
   Banks:
-  - {fileID: 114000012373716624}
+  - {fileID: 114000011117057948}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
