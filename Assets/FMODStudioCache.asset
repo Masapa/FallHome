@@ -33,7 +33,11 @@ MonoBehaviour:
   - {fileID: 114000010791653742}
   MasterBankRef: {fileID: 114000011117057948}
   StringsBankRef: {fileID: 114000012039710446}
+<<<<<<< HEAD
   stringsBankWriteTime: 636139565857450102
+=======
+  stringsBankWriteTime: 636139569832115089
+>>>>>>> b70cb86912767ca7b28743a8f704dad00492a5d0
   cacheVersion: 2
 --- !u!114 &114000010052499568
 MonoBehaviour:
@@ -201,11 +205,26 @@ MonoBehaviour:
   Banks:
   - {fileID: 114000011117057948}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114000010893754812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Distance
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114000010913283644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,11 +241,11 @@ MonoBehaviour:
   Banks:
   - {fileID: 114000011117057948}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000010991741748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -578,11 +597,11 @@ MonoBehaviour:
   Banks:
   - {fileID: 114000011117057948}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000011904613060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,7 +672,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\Fmod_bank\Desktop\Master Bank.strings.bank
+<<<<<<< HEAD
   lastModified: 636139565857450102
+=======
+  lastModified: 636139569832115089
+>>>>>>> b70cb86912767ca7b28743a8f704dad00492a5d0
   LoadResult: 0
   FileSizes:
   - Name: 
@@ -723,11 +746,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: C:\Users\OGL-Bus02\Documents\FallHome\Assets\Fmod_bank\Desktop\Master Bank.bank
-  lastModified: 636139559965590756
+  lastModified: 636139569832105088
   LoadResult: 0
   FileSizes:
   - Name: 
-    Value: 1288064
+    Value: 1285792
   Exists: 1
 --- !u!114 &114000012392048918
 MonoBehaviour:
@@ -764,12 +787,16 @@ MonoBehaviour:
   Banks:
   - {fileID: 114000011117057948}
   IsStream: 1
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 0
   Parameters:
+<<<<<<< HEAD
   - {fileID: 114000011560214442}
+=======
+  - {fileID: 114000010893754812}
+>>>>>>> b70cb86912767ca7b28743a8f704dad00492a5d0
   MinDistance: 0
-  MaxDistance: 10000
+  MaxDistance: 0
 --- !u!114 &114000012426513900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -782,6 +809,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: gameState
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114000012597752664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: FadeIn
   Min: 0
   Max: 1
   Default: 0
@@ -822,12 +864,16 @@ MonoBehaviour:
   Banks:
   - {fileID: 114000011117057948}
   IsStream: 1
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 0
   Parameters:
+<<<<<<< HEAD
   - {fileID: 114000013052582388}
+=======
+  - {fileID: 114000012597752664}
+>>>>>>> b70cb86912767ca7b28743a8f704dad00492a5d0
   MinDistance: 0
-  MaxDistance: 100
+  MaxDistance: 0
 --- !u!114 &114000012650723230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1016,11 +1062,11 @@ MonoBehaviour:
   Banks:
   - {fileID: 114000011117057948}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000013271045734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1189,11 +1235,11 @@ MonoBehaviour:
   Banks:
   - {fileID: 114000011117057948}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000013567350794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1246,11 +1292,11 @@ MonoBehaviour:
   Banks:
   - {fileID: 114000011117057948}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000013605264812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1352,11 +1398,11 @@ MonoBehaviour:
   Banks:
   - {fileID: 114000011117057948}
   IsStream: 1
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 0
-  MaxDistance: 600
+  MaxDistance: 0
 --- !u!114 &114000014009732122
 MonoBehaviour:
   m_ObjectHideFlags: 0
