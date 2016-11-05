@@ -7,9 +7,11 @@ public class PlanetBehaviour : MonoBehaviour {
     CircleCollider2D triggerArea;
     float radius;
     float playerRadius;
+    Vector3 spawnPosition;
 
 	// Use this for initialization
 	void Start () {
+        spawnPosition = transform.position;
         triggerArea = gameObject.GetComponent<CircleCollider2D>();
         playerRadius = GameObject.Find("Player").GetComponent<CircleCollider2D>().radius;
         radius = triggerArea.radius;
@@ -33,7 +35,10 @@ public class PlanetBehaviour : MonoBehaviour {
         
     }
 
-
+    public void OnLevelReset()
+    {
+        transform.position = spawnPosition;
+    }
 	
 	// Update is called once per frame
 	void Update () {
