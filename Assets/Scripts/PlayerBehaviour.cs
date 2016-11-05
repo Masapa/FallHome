@@ -163,6 +163,8 @@ public class PlayerBehaviour : MonoBehaviour {
         numCharges = 0;
         thrustTimer = 0.0f;
 
+        GameObject.Find("SoundManager").GetComponent<FmodBehaviour>().RockImpact();
+
         // Send message to the GameController that we died
         gameController.StartLevelReset();
 

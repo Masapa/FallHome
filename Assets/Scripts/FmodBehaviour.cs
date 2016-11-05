@@ -17,6 +17,8 @@ public class FmodBehaviour : MonoBehaviour {
 
 	FMOD.Studio.EventInstance jetpack_Boost;
 
+    FMOD.Studio.EventInstance planetCrash;
+
 	/*
 	[FMODUnity.EventRef]
 	public string gameBGMSnapshot = "snapshot:/Game";
@@ -49,6 +51,7 @@ public class FmodBehaviour : MonoBehaviour {
 		pDistance.setValue (scaledDistance( initialDistance, distance));
 
 		jetpack_Boost = FMODUnity.RuntimeManager.CreateInstance ("event:/Jetpack_Boost");
+        planetCrash = FMODUnity.RuntimeManager.CreateInstance("event:/PlayerDeath");
 
 //		gameBGMSnapshotEv = FMODUnity.RuntimeManager.CreateInstance (gameBGMSnapshot);
 //		gameBGMSnapshotEv.start ();
@@ -74,6 +77,11 @@ public class FmodBehaviour : MonoBehaviour {
     public void PlayJetPack()
     {
         jetpack_Boost.start();
+    }
+    public void RockImpact()
+    {
+        Debug.Log("CRAASH!");
+        planetCrash.start();
     }
 
 	// Return 0 to 1.0 based based on initial distance and current distance. 
