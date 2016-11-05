@@ -6,10 +6,10 @@ public class GameController : MonoBehaviour {
 
     public GameObject playerPrefab;
 
-    private float playerRespawnTimer = 0.0f;
+    private float levelResetTimer = 0.0f;
 
-    // Time it takes for the player to respawn after he/she has died
-    public float playerRespawnTime = 2.0f;
+    // Time it takes for the level to reset, after calling StartLevelReset()
+    public float levelResetTime = 2.0f;
 
     // Where to spawn the player after dying.
     public Vector3 spawnPosition;
@@ -38,22 +38,40 @@ public class GameController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if (playerRespawnTimer > 0.0f) {
-            playerRespawnTimer -= Time.fixedDeltaTime;
-            if (playerRespawnTimer <= 0.0f) {
-                RespawnPlayer();
+        if (levelResetTimer > 0.0f) {
+            levelResetTimer -= Time.fixedDeltaTime;
+            if (levelResetTimer <= 0.0f) {
+                ResetLevel();
             }
         }
     }
 
-    void RespawnPlayer()
+    // Resets the level, after a short period
+    public void StartLevelReset()
     {
+        levelResetTimer = levelResetTime;
+    }
+
+    // Reset the level, immedietly
+    public void ResetLevel()
+    {
+        levelResetTimer = 0.0f;
+
+        // Send reset message to all game objects, slow but works
+        GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>() ;
+        foreach(GameObject go in allObjects) {
+            if (go.activeInHierarchy) {
+                go.SendMessage("OnLevelReset", null, SendMessageOptions.DontRequireReceiver);
+            }
+        }
+
         // Remove any old copies of the player
         GameObject player = GameObject.Find("Player");
         if (player) {
             GameObject.Destroy(player);
         }
 
+        // Re-instantiate the player
         if (playerPrefab) {
             player = Instantiate(playerPrefab);
             if (player) {
@@ -63,10 +81,5 @@ public class GameController : MonoBehaviour {
                 Camera.main.GetComponent<CameraBehaviour>().SetTarget(player.transform);
             }
         }
-    }
-
-    void OnLevelReset()
-    {
-        playerRespawnTimer = playerRespawnTime;
     }
 }

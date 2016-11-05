@@ -39,6 +39,8 @@ public class PlayerBehaviour : MonoBehaviour {
     private Rigidbody2D body;
     private ParticleSystem particles;
 
+    private GameController gameController = null;
+
     // Use this for initialization
     void Start ()
     {
@@ -50,6 +52,15 @@ public class PlayerBehaviour : MonoBehaviour {
         particles = GetComponent<ParticleSystem>();
         if (particles == null) {
             Debug.LogError("ParticleSystem missing from player");
+        }
+
+        GameObject gcObj = GameObject.Find("GameController");
+        if (gcObj) {
+            gameController = gcObj.GetComponent<GameController>();
+        }
+
+        if (gameController == null) {
+            Debug.LogError("gameController missing from player");
         }
 
         if (bloodSpatterPrefab == null) {
@@ -130,7 +141,6 @@ public class PlayerBehaviour : MonoBehaviour {
             Vector3 dir = (transform.position - other.transform.position).normalized;
             GameObject splatter = (GameObject)Instantiate(bloodSpatterPrefab, other.transform, false);
             splatter.transform.localPosition += dir * 1.2f;
-
         }
 
         if (explosionPrefab != null) {
@@ -148,14 +158,12 @@ public class PlayerBehaviour : MonoBehaviour {
         numCharges = 0;
         thrustTimer = 0.0f;
 
-        GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>() ;
-        foreach(GameObject go in allObjects) {
-            if (go.activeInHierarchy) {
-                go.SendMessage("OnLevelReset", null, SendMessageOptions.DontRequireReceiver);
-            }
-        }
+        // Send message to the GameController that we died
+        gameController.StartLevelReset();
 
         explodeparts();
+
+        // Destroy ourself
         Destroy(gameObject);
     }
     void explodeparts()
