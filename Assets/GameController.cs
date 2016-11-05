@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,7 +9,11 @@ public class GameController : MonoBehaviour {
     public GameObject playerPrefab;
     public GameObject replayPrefab;
 
+    public GameObject levelCompletePrefab;
+
     private float levelResetTimer = 0.0f;
+
+    private bool isLevelFinished;
 
     // Time it takes for the level to reset, after calling StartLevelReset()
     public float levelResetTime = 2.0f;
@@ -23,6 +28,7 @@ public class GameController : MonoBehaviour {
 	void Start ()
     {
         replays = new List<PlayerReplay>();
+        isLevelFinished = false;
 
         GameObject player = GameObject.Find("Player");
         if (player) {
@@ -42,11 +48,20 @@ public class GameController : MonoBehaviour {
         if (playerPrefab == null) {
             Debug.LogError("playerPrefab is missing from GameController");
         }
+
+        if (levelCompletePrefab == null) {
+            Debug.LogError("levelCompletePrefab is missing from GameController");
+        }
+
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
+        if (isLevelFinished) {
+            return;
+        }
+
         if (Input.GetKeyDown("r")) {
             // Ignore replay when reseting
             recordingReplay = null;
@@ -66,6 +81,23 @@ public class GameController : MonoBehaviour {
 
     void OnLevelComplete()
     {
+        isLevelFinished = true;
+        
+        if (levelCompletePrefab) {
+            GameObject tmp = (GameObject)Instantiate(
+                levelCompletePrefab, GameObject.Find("ScreenSpaceCanvas").transform, false);
+
+            tmp.name = "LevelCompleteGui";
+
+            string score = "";
+            GameObject sm = GameObject.Find("ScoreManager");
+            if (sm) {
+                score = sm.GetComponent<ScoreManager>().GetScore().ToString("0");
+            }
+
+            GameObject.Find("ScreenSpaceCanvas/LevelCompleteGui/LevelCompleteScore").GetComponent<Text>().text =
+                "Score: " + score;
+        }
     }
 
     // Resets the level, after a short period
