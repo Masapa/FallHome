@@ -144,8 +144,17 @@ public class PlayerBehaviour : MonoBehaviour {
             }
         }
 
-
+        explodeparts();
         Destroy(gameObject);
+    }
+    void explodeparts()
+    {
+        for(int i = 0; i <= 5; i++)
+        {
+            GameObject tmp = Instantiate(Resources.Load("spacemanpalaset_" + i), transform.position, transform.rotation) as GameObject;
+            Destroy(tmp, 30);
+            tmp.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-10, 10), Random.Range(-10, 10));
+        }
     }
 
     private bool IsChargeAvailable()
