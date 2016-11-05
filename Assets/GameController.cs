@@ -58,6 +58,10 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        if (Input.GetKey(KeyCode.Escape)) {
+            Application.LoadLevel(1);
+        }
+
         if (isLevelFinished) {
             return;
         }
