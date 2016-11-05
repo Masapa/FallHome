@@ -13,8 +13,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HasSourceProject: 0
   HasPlatforms: 0
-  SourceProjectPath: 
-  SourceBankPath: Assets\Fmod_bank\Desktop
+  SourceProjectPath: C:\Users\OGL-Bus02\Google Drive\Fall Home Sounds\FallHome_audio\FallHome_audio.fspro
+  SourceBankPath: C:\Users\OGL-Bus02\Google Drive\Fall Home Sounds\FallHome_audio\Build\Desktop
   AutomaticEventLoading: 1
   AutomaticSampleLoading: 0
   ImportType: 0
@@ -40,7 +40,9 @@ MonoBehaviour:
     Value: 1
   - Platform: 2
     Value: 0
-  BankDirectorySettings: []
+  BankDirectorySettings:
+  - Platform: 2
+    Value: Desktop
   VirtualChannelSettings:
   - Platform: 1
     Value: 1024

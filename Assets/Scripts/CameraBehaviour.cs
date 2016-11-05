@@ -17,9 +17,10 @@ public class CameraBehaviour : MonoBehaviour {
 
     public float amplitude = 0.5f;
 
-    public float originalScale = 1.0f;
+    private float originalScale = 1.0f;
+
     public float velocityScaleFactor = 0.1f;
-    public float scale = 1.0f;
+    public float maxScale = 3.0f;
 
     void Start()
     {
@@ -45,7 +46,7 @@ public class CameraBehaviour : MonoBehaviour {
             float fac = rb.velocity.magnitude * velocityScaleFactor;
 
             cam.orthographicSize = Mathf.Clamp(
-                originalScale + fac, originalScale, originalScale * 2f);
+                originalScale + fac, originalScale, originalScale * maxScale);
 
             position = target.position;
         }
@@ -61,6 +62,11 @@ public class CameraBehaviour : MonoBehaviour {
             position.y + shake.y,
             transform.position.z
         );
+    }
+
+    void OnLevelReset()
+    {
+        target = null;
     }
 
     private Vector2 GetShake()
@@ -104,5 +110,10 @@ public class CameraBehaviour : MonoBehaviour {
         shakeTime = duration;
 
         CalculateShakeSamples((int)(duration / (1.0f / samplesPerSecond)));
+    }
+
+    public void SetTarget(Transform _target)
+    {
+        target = _target;
     }
 }

@@ -7,13 +7,21 @@ public class FmodBehaviour : MonoBehaviour {
 
 
 	float distance;
+	float initialDistance;
+
 	Transform player;
 	Transform earth;
 
 	FMOD.Studio.EventInstance gameBGM;	
+	FMOD.Studio.ParameterInstance pDistance;
+
+	FMOD.Studio.EventInstance jetpack_Boost;
+
+	/*
 	[FMODUnity.EventRef]
-	public string gameBGMSnapshot = "snapshot:/GameBGM";
+	public string gameBGMSnapshot = "snapshot:/Game";
 	FMOD.Studio.EventInstance gameBGMSnapshotEv;
+	*/
 
 	// Use this for initialization
 	void Start () {
@@ -21,28 +29,56 @@ public class FmodBehaviour : MonoBehaviour {
 		earth = GameObject.Find ("Earth").transform;
 
 		distance = Vector3.Distance (player.position, earth.position);
+		initialDistance = Vector3.Distance (player.position, earth.position);
+
 
 		/* Ennen kuin mitään fmodeilua, pitää lausua loitsut */
 		/*
-		var studioSystem = FMODUnity.RuntimeManager.StudioSystem;
+		var FMOD_StudioSystem = FMODUnity.RuntimeManager.StudioSystem;
 		FMOD.Studio.CPU_USAGE cpuUsage;
 		studioSystem.getCPUUsage( out cpuUsage);
 		*/
-
-		gameBGM = FMODUnity.RuntimeManager.CreateInstance("event:/GameBGM"); 
+		Debug.Log ("Music is created here");
+		gameBGM = FMODUnity.RuntimeManager.CreateInstance ("event:/GameBGM"); 
+		gameBGM.getParameter ("Distance", out pDistance);
 		gameBGM.start ();
+		Debug.Log ("Music SHOULD be playing");
+
+		pDistance.setValue (scaledDistance( initialDistance, distance));
+
+		jetpack_Boost = FMODUnity.RuntimeManager.CreateInstance ("event:/Jetpack_Boost");
+
+//		gameBGMSnapshotEv = FMODUnity.RuntimeManager.CreateInstance (gameBGMSnapshot);
+//		gameBGMSnapshotEv.start ();
 
 
-		gameBGMSnapshotEv = FMODUnity.RuntimeManager.CreateInstance (gameBGMSnapshot);
-		gameBGMSnapshotEv.start ();
-	
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 		distance = Vector3.Distance (player.position, earth.position);	
-		gameBGM.setParameterValue("Distance", (float)distance);
+		pDistance.setValue (scaledDistance( initialDistance, distance));
+		Debug.Log ("Distance: " + distance);
+
+		if (Input.anyKeyDown)
+			jetpack_Boost.start ();
+
+
+	}
+
+	// Return 0 to 1.0 based based on initial distance and current distance. 
+	// 0.5 on initial distance, 1.0 on 2x and over
+
+	float scaledDistance( float init, float d ) {
+		float a = d / init;
+		if( a>1.0f ) { 
+			return 1.0f;
+		}
+		else return a;
+	}
+
+	public void oneShotSound (string sfxName) {
 
 	}
 }
