@@ -29,7 +29,7 @@ public class PlanetBehaviour : MonoBehaviour {
         Vector3 destination = (transform.position - other.transform.position).normalized;
         Vector2 destination2D = new Vector2(destination.x, destination.y);
         other.GetComponent<Rigidbody2D>().AddForce(destination2D * gravity);
-        Debug.Log(destination2D * gravity);
+        //Debug.Log(destination2D * gravity);
            // Debug.Log(gravity);
         
         
