@@ -55,7 +55,7 @@ public class PlayerBehaviour : MonoBehaviour {
             Debug.LogError("Rigidbody2D missing from player");
         }
 
-        particles = GetComponent<ParticleSystem>();
+        particles = GetComponentInChildren<ParticleSystem>();
         if (particles == null) {
             Debug.LogError("ParticleSystem missing from player");
         }
@@ -139,20 +139,27 @@ public class PlayerBehaviour : MonoBehaviour {
                 numCharges = maxCharges;
             }
         }
+
+
     }
 
 
     void OnCollisionStay2D(Collision2D other)
     {
-        if(levelSelection && levelSelectionTime+0.5f >= Time.time)
+        if(levelSelection)
         {
-            //if(Application.LoadLevel())
+            if ((levelSelectionTime + 1.5f) <= Time.timeSinceLevelLoad)
+            {
+                GameObject.Find("SoundManager").GetComponent<FmodBehaviour>().gameBGM.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                Application.LoadLevel(other.gameObject.GetComponent<LevelSelectionBehaviour>().SceneNumber);
+            }
         }
     }
     float levelSelectionTime;
+    bool levelSelectionFuck = false;
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (levelSelection) { levelSelectionTime = Time.time; }
+        if (levelSelection && !levelSelectionFuck) { levelSelectionTime = Time.timeSinceLevelLoad;levelSelectionFuck = true; }
 
         if (other.transform.tag != "Asteroid")
         {

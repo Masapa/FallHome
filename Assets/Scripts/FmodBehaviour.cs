@@ -12,7 +12,7 @@ public class FmodBehaviour : MonoBehaviour {
 	Transform player;
 	Transform earth;
 
-	FMOD.Studio.EventInstance gameBGM;	
+	public FMOD.Studio.EventInstance gameBGM;	
 	FMOD.Studio.ParameterInstance pDistance;
 
 	FMOD.Studio.EventInstance jetpack_Boost;
@@ -45,8 +45,12 @@ public class FmodBehaviour : MonoBehaviour {
 		studioSystem.getCPUUsage( out cpuUsage);
 		*/
 		Debug.Log ("Music is created here");
-		gameBGM = FMODUnity.RuntimeManager.CreateInstance ("event:/GameBGM"); 
-		gameBGM.getParameter ("Distance", out pDistance);
+        if (Application.loadedLevel >= 1)
+        {
+            gameBGM = FMODUnity.RuntimeManager.CreateInstance("event:/GameBGM");
+            gameBGM.getParameter("Distance", out pDistance);
+        }
+        else { gameBGM = FMODUnity.RuntimeManager.CreateInstance("event:/MenuBGM"); }
 		gameBGM.start ();
 		Debug.Log ("Music SHOULD be playing");
 
