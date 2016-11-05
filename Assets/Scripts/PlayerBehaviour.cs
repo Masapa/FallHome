@@ -175,17 +175,35 @@ public class PlayerBehaviour : MonoBehaviour {
                 explosion.transform.eulerAngles = rotation;
             }
 
+
             CameraBehaviour cb = Camera.main.gameObject.GetComponent<CameraBehaviour>();
             if (cb != null)
             {
                 cb.Shake(1f, 20.0f);
             }
 
+            Kill();
+        }
+    }
+
+    public void Kill()
+    {
+        CameraBehaviour cb = Camera.main.gameObject.GetComponent<CameraBehaviour>();
+        if (cb != null) {
+            cb.Shake(1f, 20.0f);
+        }
+
             // Set these to zero to hide the GUI elements
             numCharges = 0;
             thrustTimer = 0.0f;
 
             GameObject.Find("SoundManager").GetComponent<FmodBehaviour>().RockImpact();
+
+        try {
+        GameObject.Find("SoundManager").GetComponent<FmodBehaviour>().RockImpact();
+        } catch (System.Exception e) {
+        }
+
 
             // Send message to the GameController that we died
             gameController.StartLevelReset();
@@ -197,8 +215,9 @@ public class PlayerBehaviour : MonoBehaviour {
 
             // Destroy ourself
             Destroy(gameObject);
-        }
     }
+
+
     void explodeparts()
     {
         for(int i = 0; i <= 5; i++)
@@ -234,7 +253,14 @@ public class PlayerBehaviour : MonoBehaviour {
         }
 
         particles.Play();
-        GameObject.Find("SoundManager").GetComponent<FmodBehaviour>().PlayJetPack();
+
+        try {
+        if (GameObject.Find("SoundManager")) {
+            GameObject.Find("SoundManager").GetComponent<FmodBehaviour>().PlayJetPack();
+        }
+        } catch (System.Exception e) {
+        }
+
         numCharges--;
         chargeTimer = chargeTime;
         thrustAngle = direction;
