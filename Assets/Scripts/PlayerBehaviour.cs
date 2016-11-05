@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerBehaviour : MonoBehaviour {
 
     public GameObject bloodSpatterPrefab;
+    public GameObject explosionPrefab;
 
     public int numCharges = 0;
     public int maxCharges = 3;
@@ -38,6 +39,8 @@ public class PlayerBehaviour : MonoBehaviour {
     private Rigidbody2D body;
     private ParticleSystem particles;
 
+    private GameController gameController = null;
+
     // Use this for initialization
     void Start ()
     {
@@ -51,10 +54,22 @@ public class PlayerBehaviour : MonoBehaviour {
             Debug.LogError("ParticleSystem missing from player");
         }
 
+        GameObject gcObj = GameObject.Find("GameController");
+        if (gcObj) {
+            gameController = gcObj.GetComponent<GameController>();
+        }
+
+        if (gameController == null) {
+            Debug.LogError("gameController missing from player");
+        }
+
         if (bloodSpatterPrefab == null) {
             Debug.LogError("bloodSpatterPrefab missing from player");
         }
 
+        if (explosionPrefab == null) {
+            Debug.LogError("explosionPrefab missing from player");
+        }
 
         numCharges = maxCharges;
     }
@@ -126,25 +141,29 @@ public class PlayerBehaviour : MonoBehaviour {
             Vector3 dir = (transform.position - other.transform.position).normalized;
             GameObject splatter = (GameObject)Instantiate(bloodSpatterPrefab, other.transform, false);
             splatter.transform.localPosition += dir * 1.2f;
+        }
 
-            CameraBehaviour cb = Camera.main.gameObject.GetComponent<CameraBehaviour>();
-            if (cb != null) {
-                cb.Shake(1f, 20.0f);
-            }
+        if (explosionPrefab != null) {
+            Vector3 offset = transform.position - other.transform.position;
+            GameObject explosion = (GameObject)Instantiate(explosionPrefab, other.transform, false);
+            explosion.transform.position += offset;
+        }
+
+        CameraBehaviour cb = Camera.main.gameObject.GetComponent<CameraBehaviour>();
+        if (cb != null) {
+            cb.Shake(1f, 20.0f);
         }
 
         // Set these to zero to hide the GUI elements
         numCharges = 0;
         thrustTimer = 0.0f;
 
-        GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>() ;
-        foreach(GameObject go in allObjects) {
-            if (go.activeInHierarchy) {
-                go.SendMessage("OnLevelReset", null, SendMessageOptions.DontRequireReceiver);
-            }
-        }
+        // Send message to the GameController that we died
+        gameController.StartLevelReset();
 
         explodeparts();
+
+        // Destroy ourself
         Destroy(gameObject);
     }
     void explodeparts()
@@ -174,7 +193,7 @@ public class PlayerBehaviour : MonoBehaviour {
 
         CameraBehaviour cb = Camera.main.gameObject.GetComponent<CameraBehaviour>();
         if (cb != null) {
-            cb.Shake(0.5f, 10.0f);
+            cb.Shake(0.5f, 20.0f);
         }
 
         particles.Play();
