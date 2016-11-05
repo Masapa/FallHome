@@ -55,7 +55,7 @@ public class PlayerBehaviour : MonoBehaviour {
             Debug.LogError("Rigidbody2D missing from player");
         }
 
-        particles = GetComponent<ParticleSystem>();
+        particles = GetComponentInChildren<ParticleSystem>();
         if (particles == null) {
             Debug.LogError("ParticleSystem missing from player");
         }
@@ -139,37 +139,27 @@ public class PlayerBehaviour : MonoBehaviour {
                 numCharges = maxCharges;
             }
         }
+
+
     }
 
 
-    void OnCollisionStay2D(Collider2D other)
+    void OnCollisionStay2D(Collision2D other)
     {
-        if(levelSelection && levelSelectionTime+0.5f >= Time.time)
+        if(levelSelection)
         {
-            //if(Application.LoadLevel())
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.transform.tag == "Earth") {
-            GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>() ;
-            foreach(GameObject go in allObjects) {
-                if (go.activeInHierarchy) {
-                    go.SendMessage("OnLevelComplete", null, SendMessageOptions.DontRequireReceiver);
-                }
+            if ((levelSelectionTime + 1.5f) <= Time.timeSinceLevelLoad)
+            {
+                GameObject.Find("SoundManager").GetComponent<FmodBehaviour>().gameBGM.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                Application.LoadLevel(other.gameObject.GetComponent<LevelSelectionBehaviour>().SceneNumber);
             }
-
-            Destroy(gameObject);
         }
     }
-
-
     float levelSelectionTime;
+    bool levelSelectionFuck = false;
     void OnCollisionEnter2D(Collision2D other)
     {
-
-        if (levelSelection) { levelSelectionTime = Time.time; }
+        if (levelSelection && !levelSelectionFuck) { levelSelectionTime = Time.timeSinceLevelLoad;levelSelectionFuck = true; }
 
         if (other.transform.tag != "Asteroid")
         {
@@ -210,25 +200,28 @@ public class PlayerBehaviour : MonoBehaviour {
             cb.Shake(1f, 20.0f);
         }
 
-        // Set these to zero to hide the GUI elements
-        numCharges = 0;
-        thrustTimer = 0.0f;
+            // Set these to zero to hide the GUI elements
+            numCharges = 0;
+            thrustTimer = 0.0f;
+
+            GameObject.Find("SoundManager").GetComponent<FmodBehaviour>().RockImpact();
 
         try {
         GameObject.Find("SoundManager").GetComponent<FmodBehaviour>().RockImpact();
         } catch (System.Exception e) {
         }
 
-        // Send message to the GameController that we died
-        gameController.StartLevelReset();
 
-        explodeparts();
+            // Send message to the GameController that we died
+            gameController.StartLevelReset();
 
-        // Quick hack, because we're already destroyed before the level reset message comes to use
-        gameObject.SendMessage("OnLevelReset", null, SendMessageOptions.DontRequireReceiver);
+            explodeparts();
 
-        // Destroy ourself
-        Destroy(gameObject);
+            // Quick hack, because we're already destroyed before the level reset message comes to use
+            gameObject.SendMessage("OnLevelReset", null, SendMessageOptions.DontRequireReceiver);
+
+            // Destroy ourself
+            Destroy(gameObject);
     }
 
 
