@@ -12,7 +12,7 @@ public class PlanetOrbitBehaviour : MonoBehaviour {
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
 
-            if (gameObject.GetComponentInParent<Transform>() != null)
+            if (transform.parent.transform != null)
             {
                 target = transform.parent.transform;
             }
