@@ -16,6 +16,7 @@ public class FmodBehaviour : MonoBehaviour {
 	FMOD.Studio.ParameterInstance pDistance;
 
 	FMOD.Studio.EventInstance jetpack_Boost;
+    FMOD.Studio.EventInstance jetpack_Empty;
 
     FMOD.Studio.EventInstance planetCrash;
 
@@ -53,6 +54,7 @@ public class FmodBehaviour : MonoBehaviour {
 
 		jetpack_Boost = FMODUnity.RuntimeManager.CreateInstance ("event:/Jetpack_Boost");
         planetCrash = FMODUnity.RuntimeManager.CreateInstance("event:/PlayerDeath");
+        jetpack_Empty = FMODUnity.RuntimeManager.CreateInstance("event:/Jetpack_Empty");
 
 //		gameBGMSnapshotEv = FMODUnity.RuntimeManager.CreateInstance (gameBGMSnapshot);
 //		gameBGMSnapshotEv.start ();
@@ -78,6 +80,16 @@ public class FmodBehaviour : MonoBehaviour {
     public void PlayJetPack()
     {
         jetpack_Boost.start();
+    }
+    public void PlayJetPackEmpty()
+    {
+        FMOD.Studio.PLAYBACK_STATE state;
+        jetpack_Empty.getPlaybackState(out state);
+        if (state != FMOD.Studio.PLAYBACK_STATE.PLAYING)
+        {
+            jetpack_Empty.start();
+        }
+        
     }
     public void RockImpact()
     {

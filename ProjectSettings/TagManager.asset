@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Asteroid
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Planets
   - Player
   - Shit
-  - 
+  - Asteroid
   - 
   - 
   - 
@@ -49,4 +50,7 @@ TagManager:
     locked: 0
   - name: planet
     uniqueID: 2620755767
+    locked: 0
+  - name: Asteroid
+    uniqueID: 4077165435
     locked: 0

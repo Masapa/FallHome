@@ -41,9 +41,15 @@ public class PlayerBehaviour : MonoBehaviour {
 
     private GameController gameController = null;
 
+    bool levelSelection = false;
+
     // Use this for initialization
     void Start ()
     {
+        if (GameObject.Find("LevelSelection"))
+        {
+            levelSelection = true;
+        }
         body = GetComponent<Rigidbody2D>();
         if (body == null) {
             Debug.LogError("Rigidbody2D missing from player");
@@ -135,46 +141,63 @@ public class PlayerBehaviour : MonoBehaviour {
         }
     }
 
+
+    void OnCollisionStay2D(Collision2D other)
+    {
+        if(levelSelection && levelSelectionTime+0.5f >= Time.time)
+        {
+            //if(Application.LoadLevel())
+        }
+    }
+    float levelSelectionTime;
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (bloodSpatterPrefab != null) {
-            Vector3 dir = (transform.position - other.transform.position).normalized;
-            GameObject splatter = (GameObject)Instantiate(bloodSpatterPrefab, other.transform, false);
-            splatter.transform.localPosition += dir * 1.2f;
+        if (levelSelection) { levelSelectionTime = Time.time; }
+
+        if (other.transform.tag != "Asteroid")
+        {
+            if (bloodSpatterPrefab != null)
+            {
+                Vector3 dir = (transform.position - other.transform.position).normalized;
+                GameObject splatter = (GameObject)Instantiate(bloodSpatterPrefab, other.transform, false);
+                splatter.transform.localPosition += dir * 1.2f;
+            }
+
+            if (explosionPrefab != null)
+            {
+                Vector3 offset = transform.position - other.transform.position;
+
+                Vector3 rotation = new Vector3(0.0f, 0.0f, 0.0f);
+                rotation.z = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg - 45.0f;
+
+                GameObject explosion = (GameObject)Instantiate(explosionPrefab, other.transform, false);
+                explosion.transform.position += offset;
+                explosion.transform.eulerAngles = rotation;
+            }
+
+            CameraBehaviour cb = Camera.main.gameObject.GetComponent<CameraBehaviour>();
+            if (cb != null)
+            {
+                cb.Shake(1f, 20.0f);
+            }
+
+            // Set these to zero to hide the GUI elements
+            numCharges = 0;
+            thrustTimer = 0.0f;
+
+            GameObject.Find("SoundManager").GetComponent<FmodBehaviour>().RockImpact();
+
+            // Send message to the GameController that we died
+            gameController.StartLevelReset();
+
+            explodeparts();
+
+            // Quick hack, because we're already destroyed before the level reset message comes to use
+            gameObject.SendMessage("OnLevelReset", null, SendMessageOptions.DontRequireReceiver);
+
+            // Destroy ourself
+            Destroy(gameObject);
         }
-
-        if (explosionPrefab != null) {
-            Vector3 offset = transform.position - other.transform.position;
-
-            Vector3 rotation = new Vector3(0.0f, 0.0f, 0.0f);
-            rotation.z = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg - 45.0f;
-
-            GameObject explosion = (GameObject)Instantiate(explosionPrefab, other.transform, false);
-            explosion.transform.position += offset;
-            explosion.transform.eulerAngles = rotation;
-        }
-
-        CameraBehaviour cb = Camera.main.gameObject.GetComponent<CameraBehaviour>();
-        if (cb != null) {
-            cb.Shake(1f, 20.0f);
-        }
-
-        // Set these to zero to hide the GUI elements
-        numCharges = 0;
-        thrustTimer = 0.0f;
-
-        GameObject.Find("SoundManager").GetComponent<FmodBehaviour>().RockImpact();
-
-        // Send message to the GameController that we died
-        gameController.StartLevelReset();
-
-        explodeparts();
-
-        // Quick hack, because we're already destroyed before the level reset message comes to use
-        gameObject.SendMessage("OnLevelReset", null, SendMessageOptions.DontRequireReceiver);
-
-        // Destroy ourself
-        Destroy(gameObject);
     }
     void explodeparts()
     {
@@ -194,6 +217,10 @@ public class PlayerBehaviour : MonoBehaviour {
     private void ActivateJetpack(float direction)
     {
         if (!IsChargeAvailable()) {
+            if (numCharges <= 0)
+            {
+                GameObject.Find("SoundManager").GetComponent<FmodBehaviour>().PlayJetPackEmpty();
+            }
             return;
         }
 
