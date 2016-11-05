@@ -536,6 +536,10 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1000012654057866, guid: da61f0cc339033e4a8ac82b9bc3d4b6e, type: 2}
+      propertyPath: m_TagString
+      value: Earth
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: da61f0cc339033e4a8ac82b9bc3d4b6e, type: 2}
   m_IsPrefabParent: 0

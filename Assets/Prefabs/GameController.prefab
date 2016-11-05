@@ -56,5 +56,7 @@ MonoBehaviour:
     type: 2}
   replayPrefab: {fileID: 1000010886306524, guid: bba244afac7bb49a490313b7f1619d95,
     type: 2}
+  levelCompletePrefab: {fileID: 1000012445723944, guid: 9cbf86cf3bba04bc0ada056adce32534,
+    type: 2}
   levelResetTime: 2
   spawnPosition: {x: 0, y: 0, z: 0}
