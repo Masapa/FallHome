@@ -145,8 +145,13 @@ public class PlayerBehaviour : MonoBehaviour {
 
         if (explosionPrefab != null) {
             Vector3 offset = transform.position - other.transform.position;
+
+            Vector3 rotation = new Vector3(0.0f, 0.0f, 0.0f);
+            rotation.z = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg - 45.0f;
+
             GameObject explosion = (GameObject)Instantiate(explosionPrefab, other.transform, false);
             explosion.transform.position += offset;
+            explosion.transform.eulerAngles = rotation;
         }
 
         CameraBehaviour cb = Camera.main.gameObject.GetComponent<CameraBehaviour>();
