@@ -169,6 +169,8 @@ public class PlayerBehaviour : MonoBehaviour {
             if ((levelSelectionTime + 1.5f) <= Time.timeSinceLevelLoad)
             {
                 GameObject.Find("SoundManager").GetComponent<FmodBehaviour>().gameBGM.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                GameObject.Find("SoundManager").GetComponent<FmodBehaviour>().LevelSelection.start();
+
                 Application.LoadLevel(other.gameObject.GetComponent<LevelSelectionBehaviour>().SceneNumber);
             }
         }

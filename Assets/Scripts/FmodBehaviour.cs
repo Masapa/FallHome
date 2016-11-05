@@ -17,17 +17,18 @@ public class FmodBehaviour : MonoBehaviour {
 
 	FMOD.Studio.EventInstance jetpack_Boost;
     FMOD.Studio.EventInstance jetpack_Empty;
-
+    public FMOD.Studio.EventInstance LevelSelection;
+    public FMOD.Studio.EventInstance MenuSelect;
     FMOD.Studio.EventInstance planetCrash;
-
-	/*
+   public FMOD.Studio.EventInstance LevelComplete;
+    /*
 	[FMODUnity.EventRef]
 	public string gameBGMSnapshot = "snapshot:/Game";
 	FMOD.Studio.EventInstance gameBGMSnapshotEv;
 	*/
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         if (GameObject.FindGameObjectWithTag("Player"))
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -53,8 +54,10 @@ public class FmodBehaviour : MonoBehaviour {
         else { gameBGM = FMODUnity.RuntimeManager.CreateInstance("event:/MenuBGM"); }
 		gameBGM.start ();
 		Debug.Log ("Music SHOULD be playing");
-
-		pDistance.setValue (scaledDistance( initialDistance, distance));
+        LevelSelection = FMODUnity.RuntimeManager.CreateInstance("event:/StartScreenChoice");
+        MenuSelect = FMODUnity.RuntimeManager.CreateInstance("event:/LevelSelect");
+        LevelComplete = FMODUnity.RuntimeManager.CreateInstance("event:/LevelComplete");
+        pDistance.setValue (scaledDistance( initialDistance, distance));
 
 		jetpack_Boost = FMODUnity.RuntimeManager.CreateInstance ("event:/Jetpack_Boost");
         planetCrash = FMODUnity.RuntimeManager.CreateInstance("event:/PlayerDeath");

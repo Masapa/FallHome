@@ -90,6 +90,8 @@ public class GameController : MonoBehaviour {
     {
         isLevelFinished = true;
         
+        
+
         if (levelCompletePrefab) {
             GameObject tmp = (GameObject)Instantiate(
                 levelCompletePrefab, GameObject.Find("ScreenSpaceCanvas").transform, false);
@@ -110,6 +112,7 @@ public class GameController : MonoBehaviour {
         {
             Instantiate(levelCompleteParticles, GameObject.FindGameObjectsWithTag("Earth")[0].transform, false);
         }
+        GameObject.Find("SoundManager").GetComponent<FmodBehaviour>().LevelComplete.start();
     }
 
     // Resets the level, after a short period

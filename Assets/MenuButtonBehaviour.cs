@@ -16,6 +16,7 @@ public class MenuButtonBehaviour : MonoBehaviour {
     {
         //Debug.Log("painettu");
         GameObject.Find("SoundManager").GetComponent<FmodBehaviour>().gameBGM.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        GameObject.Find("SoundManager").GetComponent<FmodBehaviour>().MenuSelect.start();
         Application.LoadLevel(7);
     }
 }
