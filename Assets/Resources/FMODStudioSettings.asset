@@ -14,7 +14,7 @@ MonoBehaviour:
   HasSourceProject: 0
   HasPlatforms: 0
   SourceProjectPath: C:\Users\OGL-Bus02\Google Drive\Fall Home Sounds\FallHome_audio\FallHome_audio.fspro
-  SourceBankPath: C:\Users\OGL-Bus02\Google Drive\Fall Home Sounds\FallHome_audio\Build\Desktop
+  SourceBankPath: Assets\Fmod_bank\Desktop
   AutomaticEventLoading: 1
   AutomaticSampleLoading: 0
   ImportType: 0
