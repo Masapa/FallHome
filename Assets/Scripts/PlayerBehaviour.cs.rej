@@ -1,0 +1,10 @@
+diff a/Assets/Scripts/PlayerBehaviour.cs b/Assets/Scripts/PlayerBehaviour.cs	(rejected hunks)
+@@ -55,7 +55,7 @@
+             Debug.LogError("Rigidbody2D missing from player");
+         }
+ 
+-        particles = GetComponent<ParticleSystem>();
++        particles = GetComponentInChildren<ParticleSystem>();
+         if (particles == null) {
+             Debug.LogError("ParticleSystem missing from player");
+         }

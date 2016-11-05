@@ -143,6 +143,24 @@ public class PlayerBehaviour : MonoBehaviour {
 
     }
 
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.transform.tag != "Earth")
+        {
+            return;
+        }
+
+        GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>();
+        foreach (GameObject go in allObjects)
+        {
+            if (go.activeInHierarchy)
+            {
+                go.SendMessage("OnLevelComplete", null, SendMessageOptions.DontRequireReceiver);
+            }
+        }
+
+        Destroy(gameObject);
+    }
 
     void OnCollisionStay2D(Collision2D other)
     {
@@ -157,6 +175,7 @@ public class PlayerBehaviour : MonoBehaviour {
     }
     float levelSelectionTime;
     bool levelSelectionFuck = false;
+
     void OnCollisionEnter2D(Collision2D other)
     {
         if (levelSelection && !levelSelectionFuck) { levelSelectionTime = Time.timeSinceLevelLoad;levelSelectionFuck = true; }
