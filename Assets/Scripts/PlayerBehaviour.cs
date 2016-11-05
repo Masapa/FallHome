@@ -163,6 +163,9 @@ public class PlayerBehaviour : MonoBehaviour {
 
         explodeparts();
 
+        // Quick hack, because we're already destroyed before the level reset message comes to use
+        gameObject.SendMessage("OnLevelReset", null, SendMessageOptions.DontRequireReceiver);
+
         // Destroy ourself
         Destroy(gameObject);
     }
