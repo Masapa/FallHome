@@ -205,7 +205,7 @@ public class PlayerBehaviour : MonoBehaviour {
         }
 
         particles.Play();
-
+        GameObject.Find("SoundManager").GetComponent<FmodBehaviour>().PlayJetPack();
         numCharges--;
         chargeTimer = chargeTime;
         thrustAngle = direction;

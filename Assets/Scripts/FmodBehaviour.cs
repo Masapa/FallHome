@@ -66,12 +66,15 @@ public class FmodBehaviour : MonoBehaviour {
             pDistance.setValue(scaledDistance(initialDistance, distance));
             Debug.Log("Distance: " + distance);
 
-            if (Input.anyKeyDown)
-                jetpack_Boost.start();
+                
         }
 
 
 	}
+    public void PlayJetPack()
+    {
+        jetpack_Boost.start();
+    }
 
 	// Return 0 to 1.0 based based on initial distance and current distance. 
 	// 0.5 on initial distance, 1.0 on 2x and over
