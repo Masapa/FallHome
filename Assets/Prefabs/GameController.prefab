@@ -58,5 +58,7 @@ MonoBehaviour:
     type: 2}
   levelCompletePrefab: {fileID: 1000012445723944, guid: 9cbf86cf3bba04bc0ada056adce32534,
     type: 2}
+  levelCompleteParticles: {fileID: 108014, guid: 709cc193619099144b204e773574c3c7,
+    type: 2}
   levelResetTime: 2
   spawnPosition: {x: 0, y: 0, z: 0}

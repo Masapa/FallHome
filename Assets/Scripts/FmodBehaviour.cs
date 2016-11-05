@@ -105,7 +105,7 @@ public class FmodBehaviour : MonoBehaviour {
 	// 0.5 on initial distance, 1.0 on 2x and over
 
 	float scaledDistance( float init, float d ) {
-		float a = d / init;
+		float a = d / (init*2);
 		if( a>1.0f ) { 
 			return 1.0f;
 		}

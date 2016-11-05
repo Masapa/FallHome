@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour {
     public GameObject replayPrefab;
 
     public GameObject levelCompletePrefab;
+    public GameObject levelCompleteParticles;
 
     private float levelResetTimer = 0.0f;
 
@@ -59,6 +60,8 @@ public class GameController : MonoBehaviour {
 	void Update ()
     {
         if (Input.GetKey(KeyCode.Escape)) {
+            GameObject.Find("SoundManager").GetComponent<FmodBehaviour>().gameBGM.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+
             Application.LoadLevel(1);
         }
 
@@ -101,6 +104,11 @@ public class GameController : MonoBehaviour {
 
             GameObject.Find("ScreenSpaceCanvas/LevelCompleteGui/LevelCompleteScore").GetComponent<Text>().text =
                 "Score: " + score;
+        }
+
+        if (levelCompleteParticles)
+        {
+            Instantiate(levelCompleteParticles, GameObject.FindGameObjectsWithTag("Earth")[0].transform, false);
         }
     }
 
