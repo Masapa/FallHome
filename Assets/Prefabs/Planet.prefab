@@ -24,6 +24,7 @@ GameObject:
   - 58: {fileID: 58000014248149364}
   - 212: {fileID: 212000012757635162}
   - 114: {fileID: 114000011013750092}
+  - 114: {fileID: 114000010980390780}
   m_Layer: 8
   m_Name: Planet
   m_TagString: Untagged
@@ -68,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010435991040}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 91.259186, y: 12.604471, z: 0}
+  m_LocalPosition: {x: -110.8152, y: -65.38936, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 3.3024683}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -120,6 +121,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 2.56
+--- !u!114 &114000010980390780
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010435991040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd00b2cbd9daa2a45b423bd95b7a9ece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravitation: 1
 --- !u!114 &114000011013750092
 MonoBehaviour:
   m_ObjectHideFlags: 1
