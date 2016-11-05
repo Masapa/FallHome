@@ -25,13 +25,15 @@ public class FmodBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player = GameObject.Find ("Player").transform;
-		earth = GameObject.Find ("Earth").transform;
+        if (GameObject.Find("Player") != null)
+        {
+            player = GameObject.Find("Player").transform;
+            earth = GameObject.Find("Earth").transform;
 
-		distance = Vector3.Distance (player.position, earth.position);
-		initialDistance = Vector3.Distance (player.position, earth.position);
+            distance = Vector3.Distance(player.position, earth.position);
+            initialDistance = Vector3.Distance(player.position, earth.position);
 
-
+        }
 		/* Ennen kuin mitään fmodeilua, pitää lausua loitsut */
 		/*
 		var FMOD_StudioSystem = FMODUnity.RuntimeManager.StudioSystem;
@@ -56,13 +58,17 @@ public class FmodBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-		distance = Vector3.Distance (player.position, earth.position);	
-		pDistance.setValue (scaledDistance( initialDistance, distance));
-		Debug.Log ("Distance: " + distance);
+        if (GameObject.Find("Player") != null)
+        {
+            player = GameObject.Find("Player").transform;
+            earth = GameObject.Find("Earth").transform;
+            distance = Vector3.Distance(player.position, earth.position);
+            pDistance.setValue(scaledDistance(initialDistance, distance));
+            Debug.Log("Distance: " + distance);
 
-		if (Input.anyKeyDown)
-			jetpack_Boost.start ();
+            if (Input.anyKeyDown)
+                jetpack_Boost.start();
+        }
 
 
 	}
