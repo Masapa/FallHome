@@ -104,6 +104,11 @@ public class GameController : MonoBehaviour {
             prrb.SetReplay(recordingReplay);
         }
 
+        SpawnGhosts();
+    }
+
+    public void SpawnGhosts()
+    {
         if (replayPrefab) {
             // Create replay ghosts for each player
             foreach (PlayerReplay replay in replays) {
