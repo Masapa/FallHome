@@ -127,14 +127,26 @@ public class PlayerBehaviour : MonoBehaviour {
             Vector3 dir = (transform.position - other.transform.position).normalized;
             GameObject splatter = (GameObject)Instantiate(bloodSpatterPrefab, other.transform, false);
             splatter.transform.localPosition += dir * 1.2f;
-
+            
             CameraBehaviour cb = Camera.main.gameObject.GetComponent<CameraBehaviour>();
             if (cb != null) {
                 cb.Shake(1f, 20.0f);
             }
         }
-
+        explodeParts();
         Destroy(gameObject);
+
+    }
+    
+    void explodeParts()
+    {
+        for(int i = 0; i < 5;i++)
+        {
+            
+           GameObject tmp = Instantiate(Resources.Load("spacemanpalaset_" + i) as GameObject,transform.position + new Vector3(0,Random.Range(0.5f,1)),transform.rotation) as GameObject;
+            Destroy(tmp, 30);
+            tmp.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-10,10),Random.Range(-10,10));
+        }
     }
 
     private bool IsChargeAvailable()
