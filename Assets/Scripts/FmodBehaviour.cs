@@ -27,9 +27,10 @@ public class FmodBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        if (GameObject.Find("Player") != null)
+        if (GameObject.FindGameObjectWithTag("Player"))
         {
-            player = GameObject.Find("Player").transform;
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+
             earth = GameObject.Find("Earth").transform;
 
             distance = Vector3.Distance(player.position, earth.position);
@@ -61,9 +62,9 @@ public class FmodBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (GameObject.Find("Player") != null)
+        if (GameObject.FindGameObjectWithTag("Player"))
         {
-            player = GameObject.Find("Player").transform;
+            player = GameObject.FindGameObjectWithTag("Player").transform;
             earth = GameObject.Find("Earth").transform;
             distance = Vector3.Distance(player.position, earth.position);
             pDistance.setValue(scaledDistance(initialDistance, distance));
