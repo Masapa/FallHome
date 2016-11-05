@@ -2,8 +2,8 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
-public class PlayerStatusBehaviour : MonoBehaviour {
-
+public class PlayerStatusBehaviour : MonoBehaviour
+{
     public GameObject worldGuiPrefab;
     public GameObject screenGuiPrefab;
 
@@ -57,6 +57,12 @@ public class PlayerStatusBehaviour : MonoBehaviour {
     {
         UpdateWorldGui();
         UpdateScreenGui();
+    }
+
+    void OnLevelReset()
+    {
+        Destroy(worldGui.gameObject);
+        Destroy(screenGui.gameObject);
     }
 
     void UpdateScreenGui()

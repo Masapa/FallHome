@@ -87,7 +87,6 @@ public class PlayerBehaviour : MonoBehaviour {
 
     void FixedUpdate()
     {
-        Debug.Log(body.velocity);
         if (chargeTimer > 0.0f) {
             chargeTimer -= Time.fixedDeltaTime;
         }
@@ -133,6 +132,18 @@ public class PlayerBehaviour : MonoBehaviour {
                 cb.Shake(1f, 20.0f);
             }
         }
+
+        // Set these to zero to hide the GUI elements
+        numCharges = 0;
+        thrustTimer = 0.0f;
+
+        GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>() ;
+        foreach(GameObject go in allObjects) {
+            if (go.activeInHierarchy) {
+                go.SendMessage("OnLevelReset", null, SendMessageOptions.DontRequireReceiver);
+            }
+        }
+
 
         Destroy(gameObject);
     }

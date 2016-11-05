@@ -64,6 +64,11 @@ public class CameraBehaviour : MonoBehaviour {
         );
     }
 
+    void OnLevelReset()
+    {
+        target = null;
+    }
+
     private Vector2 GetShake()
     {
         float s = (shakeTimer - shakeTime) / (1.0f / samplesPerSecond);
@@ -105,5 +110,10 @@ public class CameraBehaviour : MonoBehaviour {
         shakeTime = duration;
 
         CalculateShakeSamples((int)(duration / (1.0f / samplesPerSecond)));
+    }
+
+    public void SetTarget(Transform _target)
+    {
+        target = _target;
     }
 }
