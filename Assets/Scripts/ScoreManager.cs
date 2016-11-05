@@ -34,13 +34,23 @@ public class ScoreManager : MonoBehaviour
 
     public void OnPlayerDeath()
     {
-        frozen = true;
+        Freeze();
     }
 
     public void OnLevelReset()
     {
         frozen = false;
         curScore = maxScore;
+    }
+
+    public void OnLevelComplete()
+    {
+        Freeze();
+    }
+
+    private void Freeze()
+    {
+        frozen = true;
     }
 
     public double GetScore()

@@ -142,16 +142,34 @@ public class PlayerBehaviour : MonoBehaviour {
     }
 
 
-    void OnCollisionStay2D(Collision2D other)
+    void OnCollisionStay2D(Collider2D other)
     {
         if(levelSelection && levelSelectionTime+0.5f >= Time.time)
         {
             //if(Application.LoadLevel())
         }
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.transform.tag == "Earth") {
+            GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>() ;
+            foreach(GameObject go in allObjects) {
+                if (go.activeInHierarchy) {
+                    go.SendMessage("OnLevelComplete", null, SendMessageOptions.DontRequireReceiver);
+                }
+            }
+
+            Destroy(gameObject);
+        }
+    }
+
+
     float levelSelectionTime;
     void OnCollisionEnter2D(Collision2D other)
     {
+        Debug.Log("IIIIIIIIIIIIIIIIIIII");
+
         if (levelSelection) { levelSelectionTime = Time.time; }
 
         if (other.transform.tag != "Asteroid")
@@ -193,28 +211,25 @@ public class PlayerBehaviour : MonoBehaviour {
             cb.Shake(1f, 20.0f);
         }
 
-            // Set these to zero to hide the GUI elements
-            numCharges = 0;
-            thrustTimer = 0.0f;
-
-            GameObject.Find("SoundManager").GetComponent<FmodBehaviour>().RockImpact();
+        // Set these to zero to hide the GUI elements
+        numCharges = 0;
+        thrustTimer = 0.0f;
 
         try {
         GameObject.Find("SoundManager").GetComponent<FmodBehaviour>().RockImpact();
         } catch (System.Exception e) {
         }
 
+        // Send message to the GameController that we died
+        gameController.StartLevelReset();
 
-            // Send message to the GameController that we died
-            gameController.StartLevelReset();
+        explodeparts();
 
-            explodeparts();
+        // Quick hack, because we're already destroyed before the level reset message comes to use
+        gameObject.SendMessage("OnLevelReset", null, SendMessageOptions.DontRequireReceiver);
 
-            // Quick hack, because we're already destroyed before the level reset message comes to use
-            gameObject.SendMessage("OnLevelReset", null, SendMessageOptions.DontRequireReceiver);
-
-            // Destroy ourself
-            Destroy(gameObject);
+        // Destroy ourself
+        Destroy(gameObject);
     }
 
 

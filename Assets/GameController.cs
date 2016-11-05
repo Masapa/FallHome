@@ -64,6 +64,10 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    void OnLevelComplete()
+    {
+    }
+
     // Resets the level, after a short period
     public void StartLevelReset()
     {
