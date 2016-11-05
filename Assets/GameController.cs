@@ -47,6 +47,11 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        if (Input.GetKeyDown("r")) {
+            // Ignore replay when reseting
+            recordingReplay = null;
+            ResetLevel();
+        }
 	}
 
     void FixedUpdate()
@@ -63,6 +68,13 @@ public class GameController : MonoBehaviour {
     public void StartLevelReset()
     {
         levelResetTimer = levelResetTime;
+
+        GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>() ;
+        foreach(GameObject go in allObjects) {
+            if (go.activeInHierarchy) {
+                go.SendMessage("OnPlayerDeath", null, SendMessageOptions.DontRequireReceiver);
+            }
+        }
     }
 
     // Reset the level, immedietly
@@ -78,11 +90,12 @@ public class GameController : MonoBehaviour {
             }
         }
 
+        GameObject player;
+
         // Remove any old copies of the player, should be destroyed already but
         // better safe than sorry
-        GameObject player = GameObject.Find("Player");
-        if (player) {
-            GameObject.Destroy(player);
+        foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player")) {
+            GameObject.Destroy(p);
         }
 
         // Store the replay
