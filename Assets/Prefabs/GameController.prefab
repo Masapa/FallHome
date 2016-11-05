@@ -54,5 +54,7 @@ MonoBehaviour:
   seed: 0
   playerPrefab: {fileID: 1000011003856074, guid: 3390f0efef6b043e1add43f26981ded1,
     type: 2}
+  replayPrefab: {fileID: 1000010886306524, guid: bba244afac7bb49a490313b7f1619d95,
+    type: 2}
   levelResetTime: 2
   spawnPosition: {x: 0, y: 0, z: 0}
