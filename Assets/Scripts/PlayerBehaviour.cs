@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerBehaviour : MonoBehaviour {
 
     public GameObject bloodSpatterPrefab;
+    public GameObject explosionPrefab;
 
     public int numCharges = 0;
     public int maxCharges = 3;
@@ -55,6 +56,9 @@ public class PlayerBehaviour : MonoBehaviour {
             Debug.LogError("bloodSpatterPrefab missing from player");
         }
 
+        if (explosionPrefab == null) {
+            Debug.LogError("explosionPrefab missing from player");
+        }
 
         numCharges = maxCharges;
     }
@@ -127,10 +131,17 @@ public class PlayerBehaviour : MonoBehaviour {
             GameObject splatter = (GameObject)Instantiate(bloodSpatterPrefab, other.transform, false);
             splatter.transform.localPosition += dir * 1.2f;
 
-            CameraBehaviour cb = Camera.main.gameObject.GetComponent<CameraBehaviour>();
-            if (cb != null) {
-                cb.Shake(1f, 20.0f);
-            }
+        }
+
+        if (explosionPrefab != null) {
+            Vector3 offset = transform.position - other.transform.position;
+            GameObject explosion = (GameObject)Instantiate(explosionPrefab, other.transform, false);
+            explosion.transform.position += offset;
+        }
+
+        CameraBehaviour cb = Camera.main.gameObject.GetComponent<CameraBehaviour>();
+        if (cb != null) {
+            cb.Shake(1f, 20.0f);
         }
 
         // Set these to zero to hide the GUI elements
@@ -165,7 +176,7 @@ public class PlayerBehaviour : MonoBehaviour {
 
         CameraBehaviour cb = Camera.main.gameObject.GetComponent<CameraBehaviour>();
         if (cb != null) {
-            cb.Shake(0.5f, 10.0f);
+            cb.Shake(0.5f, 20.0f);
         }
 
         particles.Play();
