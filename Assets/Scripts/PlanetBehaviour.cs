@@ -8,10 +8,12 @@ public class PlanetBehaviour : MonoBehaviour {
     float radius;
     float playerRadius;
     Vector3 spawnPosition;
+    Quaternion spawnRotation;
 
 	// Use this for initialization
 	void Start () {
         spawnPosition = transform.localPosition;
+        spawnRotation = transform.rotation;
         triggerArea = gameObject.GetComponent<CircleCollider2D>();
         playerRadius = GameObject.Find("Player").GetComponent<CircleCollider2D>().radius;
         radius = triggerArea.radius;
@@ -38,6 +40,7 @@ public class PlanetBehaviour : MonoBehaviour {
     public void OnLevelReset()
     {
         transform.localPosition = spawnPosition;
+        transform.rotation = spawnRotation;
     }
 	
 	// Update is called once per frame

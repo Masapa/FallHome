@@ -14,9 +14,9 @@ public class ArrowBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (GameObject.Find("Player"))
+        if (GameObject.FindGameObjectWithTag("Player"))
         {
-            player = GameObject.Find("Player").transform;
+            player = GameObject.FindGameObjectWithTag("Player").transform;
             Vector3 diff = target.position - player.position;
             diff.Normalize();
             float rotz = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
